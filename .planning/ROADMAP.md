@@ -70,11 +70,12 @@ Plans:
 3. Rendering maintains 30+ fps on mobile devices
 4. ASCII output displays green-on-black terminal aesthetic
 5. User can select character set from dropdown (standard, dense, minimal)
-   **Plans**: TBD
+   **Plans**: 2 plans
 
 Plans:
 
-- [ ] 03-01: [TBD]
+- [ ] 03-01-PLAN.md -- Core ASCII rendering pipeline (pixel sampling, character mapping, green terminal display)
+- [ ] 03-02-PLAN.md -- Interactive controls (resolution slider, character set dropdown, video/ASCII toggle)
 
 ### Phase 4: Motion & Brightness Analysis
 
@@ -121,7 +122,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | ------------------------------- | -------------- | ----------- | ---------- |
 | 1. Foundation & Project Setup   | 2/2            | Complete    | 2026-02-14 |
 | 2. Webcam Capture               | 2/2            | Complete    | 2026-02-14 |
-| 3. ASCII Rendering Engine       | 0/TBD          | Not started | -          |
+| 3. ASCII Rendering Engine       | 0/2            | Not started | -          |
 | 4. Motion & Brightness Analysis | 0/TBD          | Not started | -          |
 | 5. UI & Layout Polish           | 0/TBD          | Not started | -          |
 
