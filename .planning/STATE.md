@@ -34,11 +34,11 @@ Progress: [█████-----] 50% (1 of 2 plans in phase 3)
 
 **Recent Plans:**
 
-| Phase 01-foundation-project-setup P01 | 2 min  | 2 tasks | 9 files |
-| Phase 01-foundation-project-setup P02 | 5 min  | 2 tasks | 9 files |
-| Phase 02 P01                          | 2 min  | 2 tasks | 4 files |
-| Phase 02 P02                          | 15 min | 3 tasks | 4 files |
-| Phase 03 P01                          | 4 min  | 2 tasks | 5 files |
+| Phase 01-foundation-project-setup P01 | 2 min | 2 tasks | 9 files |
+| Phase 01-foundation-project-setup P02 | 5 min | 2 tasks | 9 files |
+| Phase 02 P01 | 2 min | 2 tasks | 4 files |
+| Phase 02 P02 | 15 min | 3 tasks | 4 files |
+| Phase 03 P01 | 4 min | 2 tasks | 5 files |
 
 ## Accumulated Context
 

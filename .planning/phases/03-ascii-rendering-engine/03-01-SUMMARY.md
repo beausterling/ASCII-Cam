@@ -30,24 +30,18 @@ tech-stack:
 key-files:
   created: []
   modified:
-    [
-      js/config.js,
-      js/analyzer.js,
-      js/renderer.js,
-      index.html,
-      css/style.css,
-    ]
+    [js/config.js, js/analyzer.js, js/renderer.js, index.html, css/style.css]
 
 key-decisions:
-  - "Character sets ordered space-to-dense (drawing with light)"
-  - "Aspect ratio correction 0.55 for monospace 2:1 character dimensions"
-  - "Offscreen canvas with willReadFrequently:true for pixel sampling performance"
-  - "Font size dynamically calculated to fill 90% of viewport width"
+  - 'Character sets ordered space-to-dense (drawing with light)'
+  - 'Aspect ratio correction 0.55 for monospace 2:1 character dimensions'
+  - 'Offscreen canvas with willReadFrequently:true for pixel sampling performance'
+  - 'Font size dynamically calculated to fill 90% of viewport width'
 
 patterns-established:
-  - "Perceptual luminance: 0.299R + 0.587G + 0.114B (ITU-R BT.601)"
-  - "Single getImageData() call per frame, indexed access to pixel data"
-  - "Module-level offscreen canvas reused across frames"
+  - 'Perceptual luminance: 0.299R + 0.587G + 0.114B (ITU-R BT.601)'
+  - 'Single getImageData() call per frame, indexed access to pixel data'
+  - 'Module-level offscreen canvas reused across frames'
   - "Character set fallback to 'standard' if unknown set requested"
 
 # Metrics

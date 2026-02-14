@@ -9,7 +9,13 @@ dependency-graph:
   affects: [renderer.js, main.js]
 tech-stack:
   added: []
-  patterns: [raw-video-element, drawingContext-drawImage, visibility-pause, exact-facingMode]
+  patterns:
+    [
+      raw-video-element,
+      drawingContext-drawImage,
+      visibility-pause,
+      exact-facingMode,
+    ]
 key-files:
   created: []
   modified:
@@ -68,7 +74,10 @@ const video = document.createElement('video');
 video.srcObject = stream;
 video.setAttribute('playsinline', '');
 video.muted = true;
-video.onloadedmetadata = () => { video.play(); cameraReady = true; };
+video.onloadedmetadata = () => {
+  video.play();
+  cameraReady = true;
+};
 ```
 
 This avoids p5.MediaElement type issues and gives full control over constraints.
@@ -86,7 +95,7 @@ This is the standard Canvas 2D API that works directly with HTMLVideoElement.
 ### Exact FacingMode for Camera Switching
 
 ```javascript
-facingMode: forceExact ? { exact: facingMode } : facingMode
+facingMode: forceExact ? { exact: facingMode } : facingMode;
 ```
 
 Plain string facingMode is treated as "ideal" (a preference the browser can ignore). Using `{ exact: mode }` forces the browser to pick the specified camera.
