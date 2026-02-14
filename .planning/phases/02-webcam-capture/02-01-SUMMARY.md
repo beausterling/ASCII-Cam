@@ -70,11 +70,11 @@ Used async/await with raw `navigator.mediaDevices.getUserMedia()` before creatin
 ```javascript
 const constraints = {
   video: {
-    width: { ideal: 320 },  // "ideal" not "exact" for compatibility
+    width: { ideal: 320 }, // "ideal" not "exact" for compatibility
     height: { ideal: 240 },
-    facingMode: facingMode   // "user" or "environment"
+    facingMode: facingMode, // "user" or "environment"
   },
-  audio: false
+  audio: false,
 };
 
 const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -91,7 +91,7 @@ Critical for Android Chrome camera switching:
 if (capture && capture.elt && capture.elt.srcObject) {
   const stream = capture.elt.srcObject;
   const tracks = stream.getTracks();
-  tracks.forEach((track) => track.stop());  // Release camera hardware
+  tracks.forEach((track) => track.stop()); // Release camera hardware
   capture.elt.srcObject = null;
 }
 capture.remove();
@@ -113,6 +113,7 @@ Mapped all 6 getUserMedia error types (plus legacy aliases) to user-friendly mes
 ### Auto-fixed Issues
 
 **1. [Rule 3 - Blocking] Added p5.js globals to ESLint config**
+
 - **Found during:** Task 1 verification
 - **Issue:** ESLint threw errors for `createCapture` and `VIDEO` globals from p5.js CDN
 - **Fix:** Added `createCapture: 'readonly'` and `VIDEO: 'readonly'` to `eslint.config.js` globals
@@ -122,6 +123,7 @@ Mapped all 6 getUserMedia error types (plus legacy aliases) to user-friendly mes
 This was necessary to complete Task 1 verification (lint must pass). The plan didn't specify this change, but it's a standard configuration requirement for using p5.js globals in a linted codebase.
 
 **2. [Rule 2 - Missing Critical Functionality] Improved camera initialization error handling**
+
 - **Found during:** Task 1 implementation
 - **Issue:** Plan specified using createCapture directly, but this provides poor error handling visibility
 - **Fix:** Use raw `getUserMedia()` first for explicit error catching, then pass stream to createCapture
@@ -194,6 +196,7 @@ All success criteria met:
 ## Next Steps
 
 Plan 02 will:
+
 1. Wire up button click handlers in main.js
 2. Create p5.js sketch.js for canvas setup
 3. Integrate webcam video display in p5.js draw() loop
@@ -216,19 +219,23 @@ Plan 02 will:
 ## Self-Check: PASSED
 
 **Files created:**
+
 - ✓ FOUND: js/webcam.js
 
 **Files modified:**
+
 - ✓ FOUND: index.html
 - ✓ FOUND: css/style.css
 - ✓ FOUND: eslint.config.js
 
 **Commits exist:**
+
 - ✓ FOUND: b3c6de6
 - ✓ FOUND: 3b5ddea
 - ✓ FOUND: 65cb67e
 
 **Exported functions in webcam.js:**
+
 - ✓ initCamera
 - ✓ switchCamera
 - ✓ stopCamera
@@ -236,6 +243,7 @@ Plan 02 will:
 - ✓ isCameraReady
 
 **UI elements in index.html:**
+
 - ✓ btn-start-camera
 - ✓ btn-switch-camera
 - ✓ camera-status
@@ -243,6 +251,7 @@ Plan 02 will:
 - ✓ canvas-container
 
 **CSS styles:**
+
 - ✓ .camera-controls
 - ✓ .camera-status
 - ✓ .camera-error
