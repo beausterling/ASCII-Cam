@@ -5,37 +5,38 @@
 See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** Live webcam-to-ASCII rendering must work smoothly on mobile and desktop with brightness and motion signal extraction
-**Current focus:** Phase 2 - Webcam Capture
+**Current focus:** Phase 2 - Webcam Capture — VERIFYING
 
 ## Current Position
 
-Phase: 2 of 5 (Webcam Capture) — IN PROGRESS
-Plan: 1 of 2 in current phase — COMPLETE ✓
-Status: Webcam module and UI controls implemented
-Last activity: 2026-02-14 — Completed 02-01-PLAN.md
+Phase: 2 of 5 (Webcam Capture) — COMPLETE, AWAITING VERIFICATION
+Plan: 2 of 2 in current phase — COMPLETE ✓
+Status: All plans executed, human-verified on mobile
+Last activity: 2026-02-14 — Completed 02-02-PLAN.md
 
-Progress: [█████░░░░░] 50% (1 of 2 plans in phase 2)
+Progress: [██████████] 100% (2 of 2 plans in phase 2)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 3
-- Average duration: 3 min
-- Total execution time: 0.15 hours
+- Total plans completed: 4
+- Average duration: 5 min
+- Total execution time: 0.33 hours
 
 **By Phase:**
 
-| Phase                       | Plans | Total | Avg/Plan |
-| --------------------------- | ----- | ----- | -------- |
-| 01-foundation-project-setup | 2     | 7 min | 3.5 min  |
-| 02-webcam-capture           | 1     | 2 min | 2 min    |
+| Phase                       | Plans | Total  | Avg/Plan |
+| --------------------------- | ----- | ------ | -------- |
+| 01-foundation-project-setup | 2     | 7 min  | 3.5 min  |
+| 02-webcam-capture           | 2     | 17 min | 8.5 min  |
 
 **Recent Plans:**
 
-| Phase 01-foundation-project-setup P01 | 2 min | 2 tasks | 9 files |
-| Phase 01-foundation-project-setup P02 | 5 min | 2 tasks | 9 files |
-| Phase 02 P01 | 2 | 2 tasks | 4 files |
+| Phase 01-foundation-project-setup P01 | 2 min  | 2 tasks | 9 files |
+| Phase 01-foundation-project-setup P02 | 5 min  | 2 tasks | 9 files |
+| Phase 02 P01                          | 2 min  | 2 tasks | 4 files |
+| Phase 02 P02                          | 15 min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -56,6 +57,10 @@ Recent decisions affecting current work:
 - [Phase 02-01]: Manual stream track cleanup before camera switching (required for Android Chrome)
 - [Phase 02-01]: HTTPS detection via navigator.mediaDevices check
 - [Phase 02-01]: All 6 getUserMedia error types mapped to user-friendly messages
+- [Phase 02-02]: Raw HTMLVideoElement instead of p5 createElement/createCapture for direct stream control
+- [Phase 02-02]: drawingContext.drawImage() (Canvas 2D API) instead of p5 image() for video rendering
+- [Phase 02-02]: { exact: facingMode } when switching cameras to force browser to pick the other camera
+- [Phase 02-02]: Auto-resize canvas to match actual video dimensions (prevents mobile stretching)
 
 ### Pending Todos
 
@@ -68,7 +73,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-14 (plan execution)
-Stopped at: Completed 02-01-PLAN.md - Webcam Module & UI Controls
+Stopped at: Completed 02-02-PLAN.md - p5.js Sketch Integration & Button Wiring
 Resume file: None
 
 ---
