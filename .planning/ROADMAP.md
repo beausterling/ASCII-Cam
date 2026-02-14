@@ -29,10 +29,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. ES modules load correctly across separate files (main, renderer, analyzer, config)
   3. Site deploys successfully to GitHub Pages with HTTPS access
   4. README.md documents setup instructions and project overview
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: [TBD]
+- [ ] 01-01-PLAN.md -- Project scaffolding with ES modules, figlet logo, and README
+- [ ] 01-02-PLAN.md -- Dev tooling (ESLint/Prettier) and browser verification
 
 ### Phase 2: Webcam Capture
 **Goal**: Users can grant camera access and control webcam feed on mobile and desktop
