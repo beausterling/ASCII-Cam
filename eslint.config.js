@@ -11,6 +11,9 @@ export default [
       globals: {
         p5: 'readonly',
         figlet: 'readonly',
+        // p5.js global functions and constants
+        createCapture: 'readonly',
+        VIDEO: 'readonly',
         // Browser globals
         window: 'readonly',
         document: 'readonly',
