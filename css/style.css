@@ -121,3 +121,64 @@ body {
 
   /* Font size will be calculated dynamically in renderer.js */
 }
+
+/*
+ * ASCII Controls Section
+ * Interactive controls for resolution, character set, and mode toggle
+ */
+
+#ascii-controls {
+  /* Max width to prevent stretching too wide on desktop */
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.ascii-controls-container {
+  /* Grid layout for controls */
+  display: grid;
+  gap: 1.5rem;
+  /* Single column on mobile, 3 columns on desktop */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .ascii-controls-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.control-group {
+  /* Vertical layout for each control group */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-group .form-label {
+  /* Terminal aesthetic for labels */
+  font-family: 'Courier New', Courier, monospace;
+  color: #aaa;
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.control-value {
+  /* Live value display (e.g., "80 cols") */
+  font-family: 'Courier New', Courier, monospace;
+  color: #00ff00;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Override Bootstrap toggle switch to use terminal green */
+.form-check-input:checked {
+  background-color: #00ff00;
+  border-color: #00ff00;
+}
+
+.form-check-label {
+  font-family: 'Courier New', Courier, monospace;
+  color: #aaa;
+  font-size: 0.9rem;
+}

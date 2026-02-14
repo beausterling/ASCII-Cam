@@ -60,6 +60,52 @@
 
       <!-- ASCII output - where ASCII art will be displayed -->
       <pre id="ascii-output"></pre>
+
+      <!-- ASCII controls section - hidden by default, shown when camera starts -->
+      <div id="ascii-controls" class="mt-3" style="display: none">
+        <div class="ascii-controls-container">
+          <!-- Resolution slider with live column count label -->
+          <div class="control-group">
+            <label for="ascii-columns-slider" class="form-label"
+              >Resolution</label
+            >
+            <input
+              type="range"
+              id="ascii-columns-slider"
+              class="form-range"
+              min="40"
+              max="160"
+              value="80"
+            />
+            <div id="ascii-columns-label" class="control-value">80 cols</div>
+          </div>
+
+          <!-- Character set dropdown -->
+          <div class="control-group">
+            <label for="charset-select" class="form-label">Character Set</label>
+            <select id="charset-select" class="form-select">
+              <option value="standard" selected>Standard</option>
+              <option value="dense">Dense</option>
+              <option value="minimal">Minimal</option>
+            </select>
+          </div>
+
+          <!-- Video/ASCII toggle switch -->
+          <div class="control-group">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="ascii-toggle"
+                checked
+              />
+              <label class="form-check-label" for="ascii-toggle"
+                >ASCII Mode</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ES module entry point - loads our JavaScript modules -->

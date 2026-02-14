@@ -20,6 +20,10 @@ let asciiOutputEl = null; // Cached DOM reference
 let canvas = null; // p5 canvas reference
 let lastFontSize = 0; // Cache font size to avoid recalculating every frame
 
+// FPS tracking for debugging
+let frameCount = 0;
+let lastFpsTime = performance.now();
+
 /*
  * p5.js setup function - called automatically when p5.js loads
  * In global mode, p5 looks for window.setup() and window.draw() functions
@@ -112,6 +116,16 @@ window.draw = function () {
 
     // Draw the webcam video frame to fill the entire canvas
     drawingContext.drawImage(capture, 0, 0, width, height);
+  }
+
+  // FPS tracking (debug only - logs to console every ~2 seconds)
+  frameCount++;
+  const now = performance.now();
+  if (now - lastFpsTime > 2000) {
+    const fps = frameCount / ((now - lastFpsTime) / 1000);
+    console.log('FPS:', fps.toFixed(1));
+    frameCount = 0;
+    lastFpsTime = now;
   }
 };
 

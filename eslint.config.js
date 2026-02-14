@@ -28,6 +28,7 @@ export default [
         document: 'readonly',
         console: 'readonly',
         navigator: 'readonly',
+        performance: 'readonly',
       },
     },
     rules: {

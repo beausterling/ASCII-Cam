@@ -5,7 +5,12 @@
 
 // Import our ES modules - notice the explicit .js extensions (required for browsers)
 import { config } from './config.js';
-import { initRenderer } from './renderer.js';
+import {
+  initRenderer,
+  setAsciiMode,
+  setColumns,
+  setCharSet,
+} from './renderer.js';
 import { analyze } from './analyzer.js';
 import { initCamera, switchCamera, stopCamera } from './webcam.js';
 
@@ -14,6 +19,24 @@ import { initCamera, switchCamera, stopCamera } from './webcam.js';
 figlet.defaults({
   fontPath: 'https://cdn.jsdelivr.net/npm/figlet@1.8.0/fonts',
 });
+
+/*
+ * Throttle utility function
+ * Limits the rate at which a function can be called
+ * Used for slider input to prevent overwhelming mobile devices
+ * @param {Function} fn - Function to throttle
+ * @param {number} limit - Minimum milliseconds between calls
+ */
+function throttle(fn, limit) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = Date.now();
+    if (now - lastCall >= limit) {
+      lastCall = now;
+      fn.apply(this, args);
+    }
+  };
+}
 
 // Wait for DOM to be fully loaded before manipulating elements
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,6 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const switchBtn = document.getElementById('btn-switch-camera');
   const statusEl = document.getElementById('camera-status');
   const errorEl = document.getElementById('camera-error');
+
+  // Get references to ASCII controls
+  const asciiControlsEl = document.getElementById('ascii-controls');
+  const columnsSlider = document.getElementById('ascii-columns-slider');
+  const columnsLabel = document.getElementById('ascii-columns-label');
+  const charsetSelect = document.getElementById('charset-select');
+  const asciiToggle = document.getElementById('ascii-toggle');
 
   /*
    * Helper function to show status messages
@@ -86,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       startBtn.textContent = 'Start Camera';
       startBtn.classList.replace('btn-danger', 'btn-success');
       switchBtn.style.display = 'none';
+      asciiControlsEl.style.display = 'none'; // Hide ASCII controls
       showStatus('');
       clearError();
       return;
@@ -115,6 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
       startBtn.textContent = 'Stop Camera';
       startBtn.classList.replace('btn-success', 'btn-danger');
       startBtn.disabled = false;
+
+      // Show ASCII controls when camera is active
+      asciiControlsEl.style.display = 'block';
 
       // Show switch camera button on mobile devices
       // We detect mobile by checking for touch support
@@ -160,6 +194,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Re-enable button (whether success or failure)
     switchBtn.disabled = false;
+  });
+
+  /*
+   * ASCII Controls Event Listeners
+   * Wire the controls to renderer setters
+   */
+
+  // Resolution slider - throttled for mobile performance
+  const handleSliderInput = throttle((value) => {
+    setColumns(parseInt(value));
+    columnsLabel.textContent = `${value} cols`;
+  }, 50); // 50ms throttle interval
+
+  columnsSlider.addEventListener('input', (e) => {
+    handleSliderInput(e.target.value);
+  });
+
+  // Character set dropdown - change event
+  charsetSelect.addEventListener('change', (e) => {
+    setCharSet(e.target.value);
+  });
+
+  // Video/ASCII toggle - change event
+  asciiToggle.addEventListener('change', (e) => {
+    setAsciiMode(e.target.checked);
   });
 
   // The renderer is initialized automatically via p5.js global mode
