@@ -11,7 +11,6 @@ import {
   setColumns,
   setCharSet,
 } from './renderer.js';
-import { analyze } from './analyzer.js';
 import { initCamera, switchCamera, stopCamera } from './webcam.js';
 
 // Configure figlet to load fonts from CDN instead of local path
