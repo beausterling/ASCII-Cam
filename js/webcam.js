@@ -19,8 +19,7 @@ const ERROR_MESSAGES = {
     'Please grant camera permissions in your browser settings to continue.',
   PermissionDeniedError:
     'Please grant camera permissions in your browser settings to continue.',
-  NotFoundError:
-    'No camera found. Please connect a camera and try again.',
+  NotFoundError: 'No camera found. Please connect a camera and try again.',
   DevicesNotFoundError:
     'No camera found. Please connect a camera and try again.',
   NotReadableError:

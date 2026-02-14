@@ -117,13 +117,13 @@ Plans:
 **Execution Order:**
 Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
-| Phase                           | Plans Complete | Status      | Completed |
-| ------------------------------- | -------------- | ----------- | --------- |
+| Phase                           | Plans Complete | Status      | Completed  |
+| ------------------------------- | -------------- | ----------- | ---------- |
 | 1. Foundation & Project Setup   | 2/2            | Complete    | 2026-02-14 |
-| 2. Webcam Capture               | 0/2            | Planned     | -         |
-| 3. ASCII Rendering Engine       | 0/TBD          | Not started | -         |
-| 4. Motion & Brightness Analysis | 0/TBD          | Not started | -         |
-| 5. UI & Layout Polish           | 0/TBD          | Not started | -         |
+| 2. Webcam Capture               | 0/2            | Planned     | -          |
+| 3. ASCII Rendering Engine       | 0/TBD          | Not started | -          |
+| 4. Motion & Brightness Analysis | 0/TBD          | Not started | -          |
+| 5. UI & Layout Polish           | 0/TBD          | Not started | -          |
 
 ---
 
