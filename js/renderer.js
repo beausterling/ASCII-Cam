@@ -2,13 +2,23 @@
  * Renderer Module
  * Sets up the p5.js sketch that displays the webcam feed on canvas
  * Handles visibility pause/resume for battery savings
+ * Integrates ASCII rendering via analyzer.js
  */
 
 import { getCapture, isCameraReady } from './webcam.js';
 import { config } from './config.js';
+import { sampleVideoToAscii } from './analyzer.js';
 
 // Module-level state for pause control
 let isPaused = false;
+
+// ASCII mode state
+let asciiMode = true; // Start in ASCII mode - the whole point of the app
+let currentColumns = config.ascii.defaultColumns; // 80
+let currentCharSet = config.ascii.defaultCharSet; // 'standard'
+let asciiOutputEl = null; // Cached DOM reference
+let canvas = null; // p5 canvas reference
+let lastFontSize = 0; // Cache font size to avoid recalculating every frame
 
 /*
  * p5.js setup function - called automatically when p5.js loads
@@ -18,7 +28,7 @@ let isPaused = false;
 window.setup = function () {
   // Create a canvas matching our webcam capture resolution (320x240)
   // This is the ideal size we requested in webcam.js constraints
-  const canvas = createCanvas(320, 240);
+  canvas = createCanvas(320, 240);
 
   // Place the canvas inside the #canvas-container div
   // This keeps our layout organized and allows CSS styling
@@ -27,6 +37,15 @@ window.setup = function () {
   // Start with a black background
   // This shows before camera loads and when camera is not ready
   background(0);
+
+  // Cache ASCII output element reference
+  asciiOutputEl = document.getElementById('ascii-output');
+
+  // Start in ASCII mode - hide canvas, show ASCII output
+  canvas.style('display', 'none');
+  if (asciiOutputEl) {
+    asciiOutputEl.style.display = 'block';
+  }
 };
 
 /*
@@ -40,24 +59,48 @@ window.draw = function () {
     return;
   }
 
-  // Always clear to black background first
-  // This prevents artifacts if the camera feed stops or isn't ready
-  background(0);
-
   // Check if the camera has finished initializing
   // Camera might not be ready yet if user hasn't clicked Start Camera
   // or if initialization is still in progress
   if (!isCameraReady()) {
-    return; // Just show black screen if camera not ready
+    return;
   }
 
   // Get the current webcam capture element
   const capture = getCapture();
 
-  // capture is a raw HTMLVideoElement (not a p5 object)
-  // We use drawingContext.drawImage() which is the standard Canvas 2D API
-  // This works directly with HTMLVideoElement without needing p5.MediaElement
-  if (capture) {
+  if (!capture) {
+    return;
+  }
+
+  // ASCII mode: render as ASCII art
+  if (asciiMode) {
+    // Sample video and convert to ASCII
+    const asciiText = sampleVideoToAscii(
+      capture,
+      currentColumns,
+      currentCharSet
+    );
+
+    // Update ASCII output element
+    if (asciiOutputEl) {
+      asciiOutputEl.textContent = asciiText;
+
+      // Calculate font size to fill viewport width
+      // Only recalculate if columns changed (performance optimization)
+      const availableWidth = window.innerWidth * 0.9; // 90% of viewport
+      const fontSize = Math.floor(availableWidth / currentColumns);
+
+      if (fontSize !== lastFontSize) {
+        asciiOutputEl.style.fontSize = fontSize + 'px';
+        lastFontSize = fontSize;
+      }
+    }
+  } else {
+    // Video mode: render raw video to canvas
+    // Always clear to black background first
+    background(0);
+
     // Resize canvas to match the actual video aspect ratio
     // Mobile cameras often return 16:9 (e.g. 640x480 or 1280x720)
     // instead of our ideal 320x240 (4:3). If we don't match, the image stretches.
@@ -104,6 +147,43 @@ document.addEventListener('visibilitychange', () => {
     }
   }
 });
+
+/*
+ * Toggle between ASCII mode and raw video mode
+ * @param {boolean} enabled - true for ASCII mode, false for raw video
+ */
+export function setAsciiMode(enabled) {
+  asciiMode = enabled;
+
+  if (canvas && asciiOutputEl) {
+    if (enabled) {
+      // Switch to ASCII mode
+      canvas.style('display', 'none');
+      asciiOutputEl.style.display = 'block';
+    } else {
+      // Switch to video mode
+      canvas.style('display', 'block');
+      asciiOutputEl.style.display = 'none';
+    }
+  }
+}
+
+/*
+ * Set the number of character columns for ASCII rendering
+ * @param {number} cols - Number of columns (40-160)
+ */
+export function setColumns(cols) {
+  currentColumns = cols;
+  lastFontSize = 0; // Force font size recalculation
+}
+
+/*
+ * Set the character set for ASCII rendering
+ * @param {string} name - Character set name ('standard', 'dense', 'minimal')
+ */
+export function setCharSet(name) {
+  currentCharSet = name;
+}
 
 /*
  * Initialize the renderer

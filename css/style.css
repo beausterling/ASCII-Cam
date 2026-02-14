@@ -94,3 +94,30 @@ body {
   /* This prevents jarring layout shifts when the canvas appears */
   min-height: 200px;
 }
+
+/* ASCII output terminal styling */
+#ascii-output {
+  /* Monospace font required for ASCII art grid alignment */
+  font-family: 'Courier New', Courier, monospace;
+
+  /* Classic terminal phosphor green on black */
+  color: #00ff00;
+  background-color: #000000;
+
+  /* Preserve spaces and newlines for ASCII grid structure */
+  white-space: pre;
+
+  /* Tight spacing so characters form cohesive image */
+  line-height: 1;
+  letter-spacing: 0;
+
+  /* Layout */
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+
+  /* Don't show scrollbars */
+  overflow: hidden;
+
+  /* Font size will be calculated dynamically in renderer.js */
+}
