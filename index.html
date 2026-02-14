@@ -25,6 +25,38 @@
     <div class="container">
       <!-- Pre-formatted text element to hold our ASCII art logo -->
       <pre id="logo" class="text-center"></pre>
+
+      <!-- Camera controls section -->
+      <div id="camera-controls" class="camera-controls">
+        <div class="d-flex gap-2 justify-content-center flex-wrap">
+          <button id="btn-start-camera" class="btn btn-success btn-lg">
+            Start Camera
+          </button>
+          <button
+            id="btn-switch-camera"
+            class="btn btn-outline-secondary"
+            style="display: none"
+          >
+            Switch Camera
+          </button>
+        </div>
+      </div>
+
+      <!-- Status message area - shows "Initializing camera..." type messages -->
+      <div id="camera-status" class="camera-status text-center mt-2"></div>
+
+      <!-- Error message area - shows error messages, hidden by default -->
+      <div
+        id="camera-error"
+        class="camera-error text-center mt-2"
+        style="display: none"
+      ></div>
+
+      <!-- Canvas container - where p5.js canvas will be placed in Plan 02 -->
+      <div
+        id="canvas-container"
+        class="canvas-container text-center mt-3"
+      ></div>
     </div>
 
     <!-- ES module entry point - loads our JavaScript modules -->

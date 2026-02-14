@@ -8,10 +8,8 @@ body {
   background-color: #000000;
   /* Ensure we fill the full viewport height */
   min-height: 100vh;
-  /* Center content vertically */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* Add padding at the top instead of vertical centering - content will grow as camera loads */
+  padding-top: 2rem;
 }
 
 #logo {
@@ -49,4 +47,50 @@ body {
     font-size: clamp(0.4rem, 1.5vw, 0.8rem);
     padding: 1rem 0.5rem;
   }
+}
+
+/*
+ * Camera Controls Styles
+ * UI elements for camera initialization, switching, and status display
+ */
+
+.camera-controls {
+  /* Space above the controls for visual breathing room */
+  margin-top: 1rem;
+  /* Center align the button group */
+  text-align: center;
+}
+
+.camera-status {
+  /* Muted gray for non-critical status messages */
+  color: #aaa;
+  /* Slightly smaller text for status messages */
+  font-size: 0.9rem;
+  /* Reserve space to prevent layout shift when messages appear/disappear */
+  min-height: 1.5em;
+}
+
+.camera-error {
+  /* Soft red text for error visibility without being too harsh */
+  color: #ff6b6b;
+  /* Subtle red background tint to make errors stand out */
+  background: rgba(255, 0, 0, 0.1);
+  /* Soft red border for additional visual separation */
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  /* Rounded corners for a modern, friendly look */
+  border-radius: 0.5rem;
+  /* Padding inside the error box for readability */
+  padding: 0.75rem 1rem;
+  /* Slightly smaller text for error messages */
+  font-size: 0.9rem;
+  /* Constrain width so long error messages don't stretch too wide */
+  max-width: 400px;
+  /* Center the error box */
+  margin: 0 auto;
+}
+
+.canvas-container {
+  /* Reserve vertical space for the canvas that will be added in Plan 02 */
+  /* This prevents jarring layout shifts when the canvas appears */
+  min-height: 200px;
 }
