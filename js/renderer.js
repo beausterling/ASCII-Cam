@@ -215,6 +215,14 @@ export function setCharSet(name) {
 }
 
 /*
+ * Force font size recalculation on next frame
+ * Used when viewport dimensions change (e.g. fullscreen toggle)
+ */
+export function invalidateFontSize() {
+  lastFontSize = 0;
+}
+
+/*
  * Initialize the renderer
  * This function is exported for future configuration needs
  * Currently setup() and draw() are auto-invoked by p5.js

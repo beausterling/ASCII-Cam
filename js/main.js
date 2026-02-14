@@ -10,6 +10,7 @@ import {
   setAsciiMode,
   setColumns,
   setCharSet,
+  invalidateFontSize,
 } from './renderer.js';
 import { initCamera, switchCamera, stopCamera } from './webcam.js';
 
@@ -70,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const columnsLabel = document.getElementById('ascii-columns-label');
   const charsetSelect = document.getElementById('charset-select');
   const asciiToggle = document.getElementById('ascii-toggle');
+  const fullscreenBtn = document.getElementById('btn-fullscreen');
+  const asciiOutputEl = document.getElementById('ascii-output');
 
   /*
    * Helper function to show status messages
@@ -218,6 +221,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Video/ASCII toggle - change event
   asciiToggle.addEventListener('change', (e) => {
     setAsciiMode(e.target.checked);
+  });
+
+  // Fullscreen button - toggle fullscreen on ASCII output
+  fullscreenBtn.addEventListener('click', () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      asciiOutputEl.requestFullscreen();
+    }
+  });
+
+  // Recalculate font size when entering/exiting fullscreen
+  document.addEventListener('fullscreenchange', () => {
+    invalidateFontSize();
+    fullscreenBtn.textContent = document.fullscreenElement
+      ? 'Exit Fullscreen'
+      : 'Fullscreen';
   });
 
   // The renderer is initialized automatically via p5.js global mode

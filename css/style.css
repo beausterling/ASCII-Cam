@@ -126,6 +126,14 @@ body {
   /* Font size will be calculated dynamically in renderer.js */
 }
 
+/* Fullscreen ASCII output - center content and fill black background */
+#ascii-output:fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+
 /*
  * ASCII Controls Section
  * Interactive controls for resolution, character set, and mode toggle
