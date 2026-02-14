@@ -69,11 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
     errorEl.style.display = 'none';
   }
 
+  // Track whether camera is currently running for the start/stop toggle
+  let cameraRunning = false;
+
   /*
-   * Start Camera button click handler
-   * Initiates webcam access and updates UI based on result
+   * Start/Stop Camera button click handler
+   * Toggles between starting and stopping the webcam
    */
   startBtn.addEventListener('click', async () => {
+    // If camera is running, stop it and reset the UI
+    if (cameraRunning) {
+      stopCamera();
+      cameraRunning = false;
+
+      // Reset button back to "Start Camera" state
+      startBtn.textContent = 'Start Camera';
+      startBtn.classList.replace('btn-danger', 'btn-success');
+      switchBtn.style.display = 'none';
+      showStatus('');
+      clearError();
+      return;
+    }
+
     // Clear any previous errors
     clearError();
 
@@ -89,12 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const result = await initCamera();
 
     if (result.success) {
+      cameraRunning = true;
+
       // Camera initialized successfully
       showStatus('Camera active');
 
-      // Update button to show camera is running
-      startBtn.textContent = 'Camera Running';
-      startBtn.classList.replace('btn-success', 'btn-secondary');
+      // Update button to "Stop Camera" so user can turn it off
+      startBtn.textContent = 'Stop Camera';
+      startBtn.classList.replace('btn-success', 'btn-danger');
+      startBtn.disabled = false;
 
       // Show switch camera button on mobile devices
       // We detect mobile by checking for touch support
