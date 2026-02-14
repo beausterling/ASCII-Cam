@@ -90,8 +90,6 @@ body {
 }
 
 .canvas-container {
-  /* Reserve vertical space for the canvas */
-  min-height: 200px;
 }
 
 /* Center the p5.js canvas (p5 sets display:block, so text-center won't work) */

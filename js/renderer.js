@@ -94,7 +94,10 @@ window.draw = function () {
       // Monospace char width ≈ 0.6 * fontSize (Courier New advance width ratio)
       const charWidthRatio = 0.6;
       const availableWidth = window.innerWidth * 0.95;
-      const availableHeight = window.innerHeight * 0.75;
+
+      // Measure actual remaining viewport below where ASCII output starts
+      const topOffset = asciiOutputEl.getBoundingClientRect().top;
+      const availableHeight = window.innerHeight - topOffset - 80;
 
       const fontSizeFromWidth =
         availableWidth / (currentColumns * charWidthRatio);
