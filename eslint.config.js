@@ -14,6 +14,13 @@ export default [
         // p5.js global functions and constants
         createCapture: 'readonly',
         VIDEO: 'readonly',
+        createCanvas: 'readonly',
+        background: 'readonly',
+        image: 'readonly',
+        width: 'readonly',
+        height: 'readonly',
+        noLoop: 'readonly',
+        loop: 'readonly',
         // Browser globals
         window: 'readonly',
         document: 'readonly',
