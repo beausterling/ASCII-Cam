@@ -25,9 +25,10 @@ export const config = {
     minColumns: 40,
     maxColumns: 160,
     defaultCharSet: 'standard',
-    // Monospace chars are ~2:1 tall:wide, so we correct aspect ratio
-    // rowHeight = cellWidth * aspectRatioCorrection
-    aspectRatioCorrection: 0.55,
+    // Monospace chars are ~0.6x wide as tall (with line-height:1)
+    // To preserve video aspect ratio: cellHeight = cellWidth * (1/charWidthRatio)
+    // This produces fewer rows, compensating for tall character cells
+    aspectRatioCorrection: 1.65,
   },
 
   // Theme colors for ASCII output rendering
