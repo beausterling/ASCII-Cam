@@ -27,3 +27,6 @@ yarn-debug.log*
 # Build artifacts (for future phases)
 dist/
 build/
+
+# Local Netlify folder
+.netlify
