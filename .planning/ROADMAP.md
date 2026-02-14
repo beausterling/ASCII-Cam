@@ -51,11 +51,12 @@ Plans:
 3. Video captures at low resolution (320x240) for mobile performance
 4. User can toggle between front and rear cameras on mobile devices
 5. Processing pauses automatically when browser tab is hidden
-   **Plans**: TBD
+   **Plans**: 2 plans
 
 Plans:
 
-- [ ] 02-01: [TBD]
+- [ ] 02-01-PLAN.md -- Webcam module with camera init, switching, error handling, and UI controls
+- [ ] 02-02-PLAN.md -- p5.js sketch integration, visibility pause, and button handler wiring
 
 ### Phase 3: ASCII Rendering Engine
 
@@ -119,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase                           | Plans Complete | Status      | Completed |
 | ------------------------------- | -------------- | ----------- | --------- |
 | 1. Foundation & Project Setup   | 2/2            | Complete    | 2026-02-14 |
-| 2. Webcam Capture               | 0/TBD          | Not started | -         |
+| 2. Webcam Capture               | 0/2            | Planned     | -         |
 | 3. ASCII Rendering Engine       | 0/TBD          | Not started | -         |
 | 4. Motion & Brightness Analysis | 0/TBD          | Not started | -         |
 | 5. UI & Layout Polish           | 0/TBD          | Not started | -         |
