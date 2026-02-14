@@ -71,33 +71,33 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CAM-01 | TBD | Pending |
-| CAM-02 | TBD | Pending |
-| CAM-03 | TBD | Pending |
-| CAM-04 | TBD | Pending |
-| ASCII-01 | TBD | Pending |
-| ASCII-02 | TBD | Pending |
-| ASCII-03 | TBD | Pending |
-| ASCII-04 | TBD | Pending |
-| ASCII-05 | TBD | Pending |
-| ANLYS-01 | TBD | Pending |
-| ANLYS-02 | TBD | Pending |
-| ANLYS-03 | TBD | Pending |
-| UI-01 | TBD | Pending |
-| UI-02 | TBD | Pending |
-| UI-03 | TBD | Pending |
-| UI-04 | TBD | Pending |
-| UI-05 | TBD | Pending |
-| CODE-01 | TBD | Pending |
-| CODE-02 | TBD | Pending |
-| CODE-03 | TBD | Pending |
-| CODE-04 | TBD | Pending |
+| CODE-01 | Phase 1 | Pending |
+| CODE-03 | Phase 1 | Pending |
+| CODE-04 | Phase 1 | Pending |
+| CAM-01 | Phase 2 | Pending |
+| CAM-02 | Phase 2 | Pending |
+| CAM-03 | Phase 2 | Pending |
+| CAM-04 | Phase 2 | Pending |
+| ASCII-01 | Phase 3 | Pending |
+| ASCII-02 | Phase 3 | Pending |
+| ASCII-03 | Phase 3 | Pending |
+| ASCII-04 | Phase 3 | Pending |
+| ASCII-05 | Phase 3 | Pending |
+| ANLYS-01 | Phase 4 | Pending |
+| ANLYS-02 | Phase 4 | Pending |
+| ANLYS-03 | Phase 4 | Pending |
+| UI-01 | Phase 5 | Pending |
+| UI-02 | Phase 5 | Pending |
+| UI-03 | Phase 5 | Pending |
+| UI-04 | Phase 5 | Pending |
+| UI-05 | Phase 5 | Pending |
+| CODE-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 21 total
-- Mapped to phases: 0
-- Unmapped: 21
+- Mapped to phases: 21
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-13*
-*Last updated: 2026-02-13 after initial definition*
+*Last updated: 2026-02-13 after roadmap creation*
