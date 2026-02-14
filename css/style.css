@@ -1,0 +1,52 @@
+/*
+ * ASCII Cam - Custom Styles
+ * Dark theme with terminal-inspired aesthetics
+ */
+
+body {
+  /* Deep black background for that classic terminal feel */
+  background-color: #000000;
+  /* Ensure we fill the full viewport height */
+  min-height: 100vh;
+  /* Center content vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo {
+  /* Monospace font family for authentic ASCII art rendering */
+  font-family: 'Courier New', Courier, monospace;
+
+  /* Neutral white/light gray for the logo (green reserved for ASCII output) */
+  color: #e0e0e0;
+
+  /*
+   * Responsive font sizing using clamp()
+   * - Minimum: 0.5rem for small mobile screens
+   * - Preferred: 2vw scales with viewport width
+   * - Maximum: 1.2rem to prevent oversized text on large screens
+   */
+  font-size: clamp(0.5rem, 2vw, 1.2rem);
+
+  /* Remove default margin */
+  margin: 0;
+
+  /* Add some padding around the logo */
+  padding: 2rem 1rem;
+
+  /* Prevent text from wrapping - keep ASCII art intact */
+  white-space: pre;
+
+  /* Allow horizontal scrolling if needed on very small screens */
+  overflow-x: auto;
+}
+
+/* Mobile adjustments for better readability */
+@media (max-width: 576px) {
+  #logo {
+    /* Slightly smaller on mobile to fit better */
+    font-size: clamp(0.4rem, 1.5vw, 0.8rem);
+    padding: 1rem 0.5rem;
+  }
+}
