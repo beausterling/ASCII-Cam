@@ -19,15 +19,16 @@ Progress: [█████░░░░░] 50%
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 1
 - Average duration: 2 min
 - Total execution time: 0.03 hours
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 01-foundation-project-setup | 1 | 2 min | 2 min |
+| Phase                       | Plans | Total | Avg/Plan |
+| --------------------------- | ----- | ----- | -------- |
+| 01-foundation-project-setup | 1     | 2 min | 2 min    |
 
 **Recent Plans:**
 
@@ -62,4 +63,5 @@ Stopped at: Completed 01-foundation-project-setup/01-01-PLAN.md
 Resume file: None
 
 ---
-*Last updated: 2026-02-14*
+
+_Last updated: 2026-02-14_

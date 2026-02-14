@@ -14,12 +14,14 @@ Deployable static site with ES module architecture ready for feature development
 ## Implementation Decisions
 
 ### Visual starting point
+
 - Big ASCII text logo ("ASCII CAM" in large block letters, figlet-style) centered on page
 - No tagline, no feature list — just the logo on a dark background
 - Dark page background with neutral (white/gray) UI elements — green reserved for ASCII output only in later phases
 - Animations deferred to a later phase — static logo for now
 
 ### Deployment setup
+
 - GitHub Pages deployed directly from main branch root (no /docs folder, no Actions workflow)
 - Repo: https://github.com/beausterling/ASCII-Cam
 - Default GitHub Pages URL for now; custom domain to be configured later by user
@@ -27,11 +29,13 @@ Deployable static site with ES module architecture ready for feature development
 - Feature branch workflow — develop on feature branches, merge to main to deploy
 
 ### Dev experience
+
 - ESLint + Prettier set up for linting and auto-formatting
 - 2-space indent, 80 character line length
 - Libraries (p5.js, Bootstrap) loaded from CDN — no bundling
 
 ### Claude's Discretion
+
 - Local development server choice (live-reload vs simple HTTP server)
 - Whether to include a package.json (for dev scripts) or stay zero-dependency
 - .gitignore contents
@@ -57,5 +61,5 @@ Deployable static site with ES module architecture ready for feature development
 
 ---
 
-*Phase: 01-foundation-project-setup*
-*Context gathered: 2026-02-13*
+_Phase: 01-foundation-project-setup_
+_Context gathered: 2026-02-13_

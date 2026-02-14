@@ -11,7 +11,7 @@ import { analyze } from './analyzer.js';
 // Configure figlet to load fonts from CDN instead of local path
 // This is important because we're loading figlet from CDN, so fonts need CDN path too
 figlet.defaults({
-  fontPath: 'https://cdn.jsdelivr.net/npm/figlet@1.10.0/fonts/'
+  fontPath: 'https://cdn.jsdelivr.net/npm/figlet@1.10.0/fonts/',
 });
 
 // Wait for DOM to be fully loaded before manipulating elements

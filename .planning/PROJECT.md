@@ -57,13 +57,14 @@ The live webcam-to-ASCII rendering must work smoothly on mobile and desktop, wit
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-|----------|-----------|---------|
-| p5.js for rendering | Handles webcam capture and canvas drawing in one library | -- Pending |
-| Tone.js for audio | Mature Web Audio abstraction with built-in synths and effects | -- Pending |
-| Green-on-black terminal aesthetic | Classic retro hacker feel contrasts nicely with dreamy audio | -- Pending |
-| Dreamy/ethereal audio style | Soft pads, reverb, slow evolving tones for calm ambient vibe | -- Pending |
-| ES modules with separate files | Clean separation of concerns (renderer, analyzer, audio, config) | -- Pending |
+| Decision                          | Rationale                                                        | Outcome    |
+| --------------------------------- | ---------------------------------------------------------------- | ---------- |
+| p5.js for rendering               | Handles webcam capture and canvas drawing in one library         | -- Pending |
+| Tone.js for audio                 | Mature Web Audio abstraction with built-in synths and effects    | -- Pending |
+| Green-on-black terminal aesthetic | Classic retro hacker feel contrasts nicely with dreamy audio     | -- Pending |
+| Dreamy/ethereal audio style       | Soft pads, reverb, slow evolving tones for calm ambient vibe     | -- Pending |
+| ES modules with separate files    | Clean separation of concerns (renderer, analyzer, audio, config) | -- Pending |
 
 ---
-*Last updated: 2026-02-13 after initialization*
+
+_Last updated: 2026-02-13 after initialization_

@@ -20,12 +20,14 @@ Critical risks center on mobile browser quirks: iOS camera switching requires co
 Modern buildless approach using CDN-delivered libraries for rapid prototyping and zero-config deployment. p5.js 2.2.1 provides canvas rendering and webcam capture with mobile-first unified pointer events, while Tone.js 15.1.22 handles Web Audio synthesis through musical APIs. Bootstrap 5.3.8 delivers responsive layout with native dark mode support.
 
 **Core technologies:**
+
 - **p5.js 2.2.1**: Canvas rendering, webcam capture, ASCII generation — Latest stable with WebGPU support and 5-10x performance boost when FES disabled
 - **Tone.js 15.1.22**: Web Audio synthesis, ambient pads, audio effects — Mature framework with PolySynth for polyphonic synth and simple musical API
 - **Bootstrap 5.3.8**: Responsive mobile-first layout — Comprehensive grid system with native dark mode, perfect for rapid UI prototyping
 - **Vanilla ES6 Modules**: Project structure — Native browser support eliminates build tools, enables static GitHub Pages deployment
 
 **Critical version compatibility:**
+
 - p5.js 2.x is the 2026 standard (1.x deprecated August 2026)
 - Tone.js 15.x verified via CDN but GitHub shows 14.7.39 as latest tagged release (use 14.7.39 for stability or 15.1.22 for TypeScript support)
 - DO NOT use p5.sound (conflicts with Tone.js when both loaded)
@@ -35,6 +37,7 @@ Modern buildless approach using CDN-delivered libraries for rapid prototyping an
 Research indicates a clear MVP boundary: the audio-visual syncing is the differentiator that must be proven first, while preset systems and gesture controls can wait for validation.
 
 **Must have (table stakes):**
+
 - Real-time webcam feed processing at 30+ fps — Core promise of the category
 - ASCII character display with adequate density (80x60 minimum) — Users expect recognizable output
 - Basic brightness/contrast controls — Standard in all webcam apps
@@ -43,6 +46,7 @@ Research indicates a clear MVP boundary: the audio-visual syncing is the differe
 - Camera permission handling with clear UI feedback — Users must understand permission states
 
 **Should have (competitive differentiators):**
+
 - Brightness → pitch audio mapping — Core innovation, proves audio-visual concept
 - Motion → volume mapping — Completes interactive experience
 - Green-on-black terminal aesthetic — Sets visual identity with minimal effort
@@ -50,6 +54,7 @@ Research indicates a clear MVP boundary: the audio-visual syncing is the differe
 - Preset system coupling visual + audio settings — Enables exploration without technical knowledge
 
 **Defer (v2+):**
+
 - Recording/video export — High complexity, encourage OS screen recording instead
 - Advanced motion detection (optical flow) — Simple frame differencing sufficient for ambient audio
 - Multiple character sets — Single well-chosen set proves concept first
@@ -61,6 +66,7 @@ Research indicates a clear MVP boundary: the audio-visual syncing is the differe
 Standard architecture separates concerns into five ES6 modules with main.js orchestrating lifecycle. Use requestVideoFrameCallback loop (not requestAnimationFrame) to sync with video frame delivery rather than display refresh, optimizing battery life on mobile.
 
 **Major components:**
+
 1. **main.js** (orchestrator) — Initialization, user gesture handling, coordinates requestVideoFrameCallback loop, manages component lifecycle
 2. **asciiRenderer.js** (p5.js instance mode) — Video capture, pixel sampling, brightness-to-character mapping, canvas rendering
 3. **motionAnalyzer.js** (frame differencing) — Compares current vs previous frame, calculates average brightness and motion percentage
@@ -68,6 +74,7 @@ Standard architecture separates concerns into five ES6 modules with main.js orch
 5. **config.js** (shared constants) — ASCII character sets, sampling density, audio mappings, visual parameters
 
 **Critical architectural patterns:**
+
 - **Dual-canvas architecture**: Process at low resolution (80x60), display at high resolution via CSS scaling
 - **Event-driven audio updates**: Audio engine receives data pushes rather than pulling from video sources (loose coupling)
 - **User gesture gatekeeper**: AudioContext initialization gated behind click handler (required by browser autoplay policies)
@@ -104,9 +111,11 @@ Research uncovered 11 critical pitfalls, with mobile browser quirks dominating t
 Based on research, the project requires 5 phases with mobile optimization and error handling integrated from the start, not bolted on later. Each phase builds on proven foundations while deferring features that can be validated after core audio-visual concept works.
 
 ### Phase 1: Foundation & Camera Setup
+
 **Rationale:** Must establish secure HTTPS context and working camera capture before any other features. Camera permission handling is the first user interaction and sets expectations for the entire experience.
 
 **Delivers:**
+
 - HTTPS-verified deployment scaffold (GitHub Pages)
 - Defensive getUserMedia with comprehensive error handling
 - Low-resolution video capture (320x240) optimized for mobile
@@ -114,11 +123,13 @@ Based on research, the project requires 5 phases with mobile optimization and er
 - Basic start/stop controls with visibility-based pause
 
 **Addresses (from FEATURES.md):**
+
 - Real-time webcam feed processing (table stakes)
 - Mobile-responsive layout (table stakes)
 - Camera permission handling with clear UI (table stakes)
 
 **Avoids (from PITFALLS.md):**
+
 - Pitfall #1: HTTPS requirement (verify GitHub Pages URL)
 - Pitfall #3: Camera tracks not stopped (implement cleanup handlers)
 - Pitfall #5: Processing full-resolution video (constrain to 320x240)
@@ -130,9 +141,11 @@ Based on research, the project requires 5 phases with mobile optimization and er
 ---
 
 ### Phase 2: ASCII Rendering Engine
+
 **Rationale:** With working camera, implement core visual transformation. This can be developed and tested independently of audio, enabling parallel iteration on aesthetic choices.
 
 **Delivers:**
+
 - p5.js instance mode renderer (asciiRenderer.js)
 - Dual-canvas architecture (process 80x60, display via CSS scaling)
 - Brightness-to-character mapping algorithm
@@ -141,16 +154,19 @@ Based on research, the project requires 5 phases with mobile optimization and er
 - Production build configuration (p5.min.js, disableFriendlyErrors)
 
 **Addresses (from FEATURES.md):**
+
 - ASCII character display with adequate density (table stakes)
 - Terminal aesthetic authenticity (differentiator)
 - Smooth performance 30+ fps (table stakes)
 
 **Avoids (from PITFALLS.md):**
+
 - Pitfall #4: Animation loop never stops (cancelAnimationFrame on visibility change)
 - Pitfall #6: Using p5.js FES in production (minified build)
 - Pitfall #11: Memory leaks from drawImage (reuse canvas instances)
 
 **Uses (from STACK.md):**
+
 - p5.js 2.2.1 with instance mode
 - requestVideoFrameCallback API
 - Dual-canvas pattern for performance
@@ -160,9 +176,11 @@ Based on research, the project requires 5 phases with mobile optimization and er
 ---
 
 ### Phase 3: Motion Analysis Layer
+
 **Rationale:** Frame differencing algorithm provides the data needed for audio synthesis. Can be developed independently and tested via console logging before audio integration.
 
 **Delivers:**
+
 - motionAnalyzer.js module with frame differencing
 - Brightness averaging (0-255 scale)
 - Motion percentage calculation (0-100 scale)
@@ -170,12 +188,15 @@ Based on research, the project requires 5 phases with mobile optimization and er
 - Downsampled analysis (10% of video resolution)
 
 **Addresses (from FEATURES.md):**
+
 - Motion detection for audio mapping (differentiator component)
 
 **Avoids (from PITFALLS.md):**
+
 - Pitfall #5: Processing full pixels (downsample to 10% for analysis)
 
 **Implements (from ARCHITECTURE.md):**
+
 - Pattern 4: Frame Differencing for Motion
 - Typed arrays for performance
 - Reusable data structures
@@ -185,9 +206,11 @@ Based on research, the project requires 5 phases with mobile optimization and er
 ---
 
 ### Phase 4: Audio Engine & A/V Syncing
+
 **Rationale:** This is the core differentiator. With working video and analysis, connecting audio completes the audio-visual experience. Must handle mobile autoplay policies and iOS interruption states from the start.
 
 **Delivers:**
+
 - audioEngine.js with Tone.js synthesis
 - User gesture gate for Tone.start()
 - Brightness → frequency mapping (100-800 Hz)
@@ -198,15 +221,18 @@ Based on research, the project requires 5 phases with mobile optimization and er
 - "Enable Sound" button with clear UX
 
 **Addresses (from FEATURES.md):**
+
 - Brightness → pitch audio mapping (differentiator)
 - Motion → volume mapping (differentiator)
 - Dreamy ambient aesthetic (differentiator)
 
 **Avoids (from PITFALLS.md):**
+
 - Pitfall #2: Audio context before user gesture (gate behind click)
 - Pitfall #10: Audio interrupted state not handled (iOS-specific recovery)
 
 **Uses (from STACK.md):**
+
 - Tone.js 15.1.22 (or 14.7.39 for stability)
 - PolySynth for ambient pads
 - Reverb for ambient textures
@@ -216,9 +242,11 @@ Based on research, the project requires 5 phases with mobile optimization and er
 ---
 
 ### Phase 5: Polish & Mobile Optimization
+
 **Rationale:** With working MVP, optimize based on real device testing. This phase addresses performance bottlenecks discovered during testing rather than premature optimization.
 
 **Delivers:**
+
 - Basic brightness/contrast controls
 - Pause/resume with visual feedback
 - Hide UI toggle for immersive mode
@@ -228,11 +256,13 @@ Based on research, the project requires 5 phases with mobile optimization and er
 - Performance profiling and memory leak verification
 
 **Addresses (from FEATURES.md):**
+
 - Basic visual controls (table stakes)
 - Pause/resume capability (table stakes)
 - Hide UI for immersion (differentiator)
 
 **Avoids (from PITFALLS.md):**
+
 - Pitfall #7: iOS camera switching (complete stream restart logic)
 - Pitfall #11: Memory leaks (extended testing with profiler)
 
@@ -255,22 +285,24 @@ Based on research, the project requires 5 phases with mobile optimization and er
 ### Research Flags
 
 Phases likely needing deeper research during planning:
+
 - **Phase 4 (Audio A/V Syncing):** Tone.js version discrepancy needs resolution, optimal audio mapping ranges need experimentation
 - **Phase 5 (iOS Camera Switching):** iOS-specific behavior varies by version, needs real-device testing strategy
 
 Phases with standard patterns (skip research-phase):
+
 - **Phase 1 (Foundation):** getUserMedia permission handling well-documented on MDN
 - **Phase 2 (ASCII Rendering):** Extensive examples and tutorials available
 - **Phase 3 (Motion Analysis):** Frame differencing is solved problem with known implementations
 
 ## Confidence Assessment
 
-| Area | Confidence | Notes |
-|------|------------|-------|
-| Stack | HIGH | p5.js 2.2.1 and Bootstrap 5.3.8 verified via official releases. Tone.js shows version discrepancy (15.1.22 on CDN vs 14.7.39 GitHub tag) but both versions exist and work — prefer 14.7.39 for stability. |
-| Features | MEDIUM | MVP feature set validated against competitor analysis and expert implementations. Audio-visual syncing differentiator is logical but unproven in market — needs validation. |
-| Architecture | HIGH | Modular ES6 structure with p5 instance mode is documented best practice. requestVideoFrameCallback and dual-canvas patterns are established. Main.js orchestrator prevents circular dependencies. |
-| Pitfalls | HIGH | All 11 critical pitfalls sourced from official documentation (MDN, Tone.js wiki) or verified bug reports (WebKit, Electron, Tone.js GitHub issues). Mobile quirks confirmed across multiple sources. |
+| Area         | Confidence | Notes                                                                                                                                                                                                     |
+| ------------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Stack        | HIGH       | p5.js 2.2.1 and Bootstrap 5.3.8 verified via official releases. Tone.js shows version discrepancy (15.1.22 on CDN vs 14.7.39 GitHub tag) but both versions exist and work — prefer 14.7.39 for stability. |
+| Features     | MEDIUM     | MVP feature set validated against competitor analysis and expert implementations. Audio-visual syncing differentiator is logical but unproven in market — needs validation.                               |
+| Architecture | HIGH       | Modular ES6 structure with p5 instance mode is documented best practice. requestVideoFrameCallback and dual-canvas patterns are established. Main.js orchestrator prevents circular dependencies.         |
+| Pitfalls     | HIGH       | All 11 critical pitfalls sourced from official documentation (MDN, Tone.js wiki) or verified bug reports (WebKit, Electron, Tone.js GitHub issues). Mobile quirks confirmed across multiple sources.      |
 
 **Overall confidence:** HIGH
 
@@ -289,6 +321,7 @@ Research identified specific areas requiring validation during implementation:
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - [p5.js Official Releases](https://github.com/processing/p5.js/releases) — v2.2.1 verified Feb 11, 2025 release
 - [Tone.js Official Documentation](https://tonejs.github.io/) — API reference for PolySynth, Reverb, Transport
 - [MDN getUserMedia Reference](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) — Browser compatibility, secure contexts, error types
@@ -297,6 +330,7 @@ Research identified specific areas requiring validation during implementation:
 - [W3C Media Capture and Streams Spec](https://w3c.github.io/mediacapture-main/getusermedia.html) — Constraints specification
 
 ### Secondary (MEDIUM confidence)
+
 - [Tone.js GitHub Issues #767](https://github.com/Tonejs/Tone.js/issues/767) — AudioContext interruption handling
 - [WebKit Bug #179363](https://bugs.webkit.org/show_bug.cgi?id=179363) — iOS getUserMedia camera switching behavior
 - [Electron Issue #22417](https://github.com/electron/electron/issues/22417) — Canvas drawImage memory leak documentation
@@ -307,9 +341,11 @@ Research identified specific areas requiring validation during implementation:
 - [Going Buildless by Max Böck](https://mxb.dev/blog/buildless/) — ES6 modules without bundlers
 
 ### Tertiary (LOW confidence, needs validation)
+
 - cdnjs.com/libraries/tone — Shows Tone.js 15.3.5 available but GitHub releases show 14.7.39 as latest tag (discrepancy noted in confidence assessment)
 - [byteiota: ASCII Rendering Revolution](https://byteiota.com/ascii-rendering-revolution-shape-based-vectors-hit-60-fps/) — 60fps optimization techniques (k-d trees for character matching)
 
 ---
-*Research completed: 2026-02-13*
-*Ready for roadmap: yes*
+
+_Research completed: 2026-02-13_
+_Ready for roadmap: yes_

@@ -15,6 +15,6 @@ export const config = {
   // Theme colors for future ASCII output rendering
   theme: {
     background: '#000000', // Black background
-    text: '#00ff00'        // Classic terminal green for ASCII art
-  }
+    text: '#00ff00', // Classic terminal green for ASCII art
+  },
 };
