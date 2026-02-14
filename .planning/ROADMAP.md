@@ -14,7 +14,7 @@ ASCII Cam delivers a live webcam-to-ASCII art web app in 5 phases, starting with
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Project Setup** - Static site scaffolding, ES modules, and deployment
-- [ ] **Phase 2: Webcam Capture** - Camera access, permissions, and mobile controls
+- [x] **Phase 2: Webcam Capture** - Camera access, permissions, and mobile controls
 - [ ] **Phase 3: ASCII Rendering Engine** - Live video-to-ASCII conversion at 30+ fps
 - [ ] **Phase 4: Motion & Brightness Analysis** - Frame differencing and signal extraction
 - [ ] **Phase 5: UI & Layout Polish** - Responsive Bootstrap interface and code quality
@@ -55,8 +55,8 @@ Plans:
 
 Plans:
 
-- [ ] 02-01-PLAN.md -- Webcam module with camera init, switching, error handling, and UI controls
-- [ ] 02-02-PLAN.md -- p5.js sketch integration, visibility pause, and button handler wiring
+- [x] 02-01-PLAN.md -- Webcam module with camera init, switching, error handling, and UI controls
+- [x] 02-02-PLAN.md -- p5.js sketch integration, visibility pause, and button handler wiring
 
 ### Phase 3: ASCII Rendering Engine
 
@@ -120,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase                           | Plans Complete | Status      | Completed  |
 | ------------------------------- | -------------- | ----------- | ---------- |
 | 1. Foundation & Project Setup   | 2/2            | Complete    | 2026-02-14 |
-| 2. Webcam Capture               | 0/2            | Planned     | -          |
+| 2. Webcam Capture               | 2/2            | Complete    | 2026-02-14 |
 | 3. ASCII Rendering Engine       | 0/TBD          | Not started | -          |
 | 4. Motion & Brightness Analysis | 0/TBD          | Not started | -          |
 | 5. UI & Layout Polish           | 0/TBD          | Not started | -          |
