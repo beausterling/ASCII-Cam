@@ -55,9 +55,10 @@ function handleCameraError(err) {
 /**
  * Initialize the camera with specified facing mode
  * @param {string} facingMode - "user" for front camera, "environment" for rear camera
+ * @param {boolean} forceExact - If true, use { exact: facingMode } to force a specific camera
  * @returns {Promise<{success: boolean, error: string|null}>}
  */
-export async function initCamera(facingMode = 'user') {
+export async function initCamera(facingMode = 'user', forceExact = false) {
   // First, check if we're in a secure context (HTTPS or localhost)
   // getUserMedia ONLY works in secure contexts - this is a browser security requirement
   if (!navigator.mediaDevices) {
@@ -72,34 +73,36 @@ export async function initCamera(facingMode = 'user') {
     // Define our video constraints
     // We use "ideal" instead of "exact" for width/height so the browser can pick the closest available resolution
     // This prevents OverconstrainedError on devices that don't support exactly 320x240
+    // For facingMode: on first init we use "ideal" (flexible), but when switching cameras
+    // we use { exact: mode } to force the browser to pick the other camera
     const constraints = {
       video: {
         width: { ideal: 320 }, // Low resolution for fast ASCII conversion
         height: { ideal: 240 },
-        facingMode: facingMode, // "user" or "environment"
+        facingMode: forceExact ? { exact: facingMode } : facingMode,
       },
       audio: false, // We don't need audio for ASCII art!
     };
 
-    // Request the media stream first using the raw getUserMedia API
-    // This gives us better error handling than just calling createCapture directly
+    // Request the media stream using the raw getUserMedia API
+    // This gives us proper error handling and respects our exact constraints
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
-    // Now create the p5 capture element from the stream
-    // createCapture can accept a stream directly
-    capture = createCapture(VIDEO);
+    // Create a plain HTML video element and attach our stream directly
+    // We don't use p5's createCapture() because it fires its own getUserMedia call
+    // which ignores our facingMode constraints (breaking camera switching)
+    const video = document.createElement('video');
+    video.srcObject = stream;
+    video.setAttribute('playsinline', ''); // Required for iOS inline playback
+    video.muted = true;
 
-    // Hide the default video element that p5 creates
-    // We'll draw the video to our canvas instead - don't want two video elements on the page!
-    capture.hide();
+    // Store the raw video element — renderer.js draws it via drawingContext.drawImage()
+    // We don't use p5's image() because it requires a p5.MediaElement, not a plain video
+    capture = video;
 
-    // Store the stream on the capture element so we can access tracks later
-    // (for cleanup when switching cameras)
-    capture.elt.srcObject = stream;
-
-    // Wait for the stream to be ready before marking camera as ready
-    // The "loadedmetadata" event fires when the stream has started
-    capture.elt.onloadedmetadata = () => {
+    // Wait for the video dimensions to be known, then start playback
+    video.onloadedmetadata = () => {
+      video.play();
       cameraReady = true;
     };
 
@@ -128,10 +131,10 @@ export async function switchCamera() {
   // Toggle between front ("user") and rear ("environment") cameras
   const newFacing = currentFacing === 'user' ? 'environment' : 'user';
 
-  // Reinitialize with the new facing mode
-  // We use "exact" here (not just the string) to force the browser to use the requested camera
-  // If we just passed the string, it would be treated as "ideal" and might not actually switch
-  const result = await initCamera(newFacing);
+  // Reinitialize with the new facing mode using exact constraint
+  // forceExact=true tells initCamera to use { exact: facingMode } so the browser
+  // is forced to pick the requested camera instead of treating it as a preference
+  const result = await initCamera(newFacing, true);
 
   return result;
 }
@@ -146,21 +149,11 @@ export function stopCamera() {
     return;
   }
 
-  // If the capture element has a stream attached, we need to stop all its tracks
-  // Stopping tracks releases the camera hardware so other apps can use it
-  if (capture.elt && capture.elt.srcObject) {
-    const stream = capture.elt.srcObject;
-    const tracks = stream.getTracks();
-
-    // Stop each track (usually just one video track)
-    tracks.forEach((track) => track.stop());
-
-    // Clear the stream reference
-    capture.elt.srcObject = null;
+  // Stop all media tracks to release the camera hardware
+  if (capture.srcObject) {
+    capture.srcObject.getTracks().forEach((track) => track.stop());
+    capture.srcObject = null;
   }
-
-  // Remove the p5 element from the DOM
-  capture.remove();
 
   // Reset our state
   capture = null;

@@ -54,14 +54,21 @@ window.draw = function () {
   // Get the current webcam capture element
   const capture = getCapture();
 
-  // Double-check we have a valid capture object
-  // (defensive programming - should always be true if isCameraReady is true)
+  // capture is a raw HTMLVideoElement (not a p5 object)
+  // We use drawingContext.drawImage() which is the standard Canvas 2D API
+  // This works directly with HTMLVideoElement without needing p5.MediaElement
   if (capture) {
+    // Resize canvas to match the actual video aspect ratio
+    // Mobile cameras often return 16:9 (e.g. 640x480 or 1280x720)
+    // instead of our ideal 320x240 (4:3). If we don't match, the image stretches.
+    const vw = capture.videoWidth;
+    const vh = capture.videoHeight;
+    if (vw && vh && (width !== vw || height !== vh)) {
+      resizeCanvas(vw, vh);
+    }
+
     // Draw the webcam video frame to fill the entire canvas
-    // image(src, x, y, width, height)
-    // x=0, y=0 positions at top-left corner
-    // width and height stretch the image to match canvas dimensions
-    image(capture, 0, 0, width, height);
+    drawingContext.drawImage(capture, 0, 0, width, height);
   }
 };
 
@@ -81,18 +88,18 @@ document.addEventListener('visibilitychange', () => {
   // document.hidden is true when tab is hidden, false when visible
   isPaused = document.hidden;
 
-  // Get the capture element so we can pause/resume the video
+  // Get the video element so we can pause/resume it
+  // capture is now a raw HTMLVideoElement (not a p5 wrapper)
   const capture = getCapture();
 
-  // Only proceed if we have an active camera stream
-  if (capture && capture.elt) {
+  if (capture) {
     if (document.hidden) {
       // Tab is hidden - pause everything to save battery
-      capture.elt.pause(); // Pause the video element (stops frame decoding)
+      capture.pause(); // Pause the video element (stops frame decoding)
       noLoop(); // Stop the p5.js draw loop (stops canvas updates)
     } else {
       // Tab is visible again - resume everything
-      capture.elt.play(); // Resume video playback
+      capture.play(); // Resume video playback
       loop(); // Resume the p5.js draw loop
     }
   }

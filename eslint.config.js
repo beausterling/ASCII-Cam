@@ -21,6 +21,8 @@ export default [
         height: 'readonly',
         noLoop: 'readonly',
         loop: 'readonly',
+        resizeCanvas: 'readonly',
+        drawingContext: 'readonly',
         // Browser globals
         window: 'readonly',
         document: 'readonly',
