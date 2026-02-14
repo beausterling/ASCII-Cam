@@ -90,9 +90,15 @@ body {
 }
 
 .canvas-container {
-  /* Reserve vertical space for the canvas that will be added in Plan 02 */
-  /* This prevents jarring layout shifts when the canvas appears */
+  /* Reserve vertical space for the canvas */
   min-height: 200px;
+}
+
+/* Center the p5.js canvas (p5 sets display:block, so text-center won't work) */
+.canvas-container canvas {
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
 }
 
 /* ASCII output terminal styling */

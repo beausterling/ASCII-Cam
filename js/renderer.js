@@ -90,10 +90,22 @@ window.draw = function () {
     if (asciiOutputEl) {
       asciiOutputEl.textContent = asciiText;
 
-      // Calculate font size to fill viewport width
-      // Only recalculate if columns changed (performance optimization)
-      const availableWidth = window.innerWidth * 0.9; // 90% of viewport
-      const fontSize = Math.floor(availableWidth / currentColumns);
+      // Calculate font size to fit ASCII art within viewport
+      // Monospace char width ≈ 0.6 * fontSize (Courier New advance width ratio)
+      const charWidthRatio = 0.6;
+      const availableWidth = window.innerWidth * 0.95;
+      const availableHeight = window.innerHeight * 0.75;
+
+      const fontSizeFromWidth =
+        availableWidth / (currentColumns * charWidthRatio);
+      const rowCount = asciiText.split('\n').length - 1;
+      const fontSizeFromHeight =
+        rowCount > 0 ? availableHeight / rowCount : fontSizeFromWidth;
+
+      const fontSize = Math.max(
+        1,
+        Math.floor(Math.min(fontSizeFromWidth, fontSizeFromHeight))
+      );
 
       if (fontSize !== lastFontSize) {
         asciiOutputEl.style.fontSize = fontSize + 'px';
